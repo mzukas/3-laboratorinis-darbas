@@ -5,6 +5,7 @@
 #include <cstring>
 #include <string>
 #include <bits/stdc++.h>
+
 using namespace std;
 void mediana(int A[]);
 
@@ -17,7 +18,7 @@ int main()
     double Vid[256];
     int kiekis;
     int vid;
-    float med[256];
+    double med[256];
     int paz[256];
     string Vardas[256];
     string Sarasas[256];
@@ -43,6 +44,15 @@ int main()
 char p;
 cout << "Ar zinote namu darbu kieki? t/n" << endl;
 cin >> p;
+while (p != 't' && p != 'n')
+        {
+            {
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                cout << "Klaida. Iveskite dar karta: ";
+                cin >> p;
+            }
+        }
 if (p == 't') {
 
     for (int j = 0; j < s; j++)
@@ -80,12 +90,12 @@ if (p == 't') {
         sort(paz, paz+kiekis);
         if (kiekis%2 == 1)
         med[j] = paz[kiekis/2];
-        else {
+        else if (kiekis%2 == 0 && kiekis != 2) {
             if (((paz[kiekis/2] + paz[(kiekis/2) - 1])/2) % 2 == 1)
             med[j] = (paz[kiekis/2] + paz[(kiekis/2) - 1])/2+0.5;
-            else if (((paz[kiekis/2] + paz[(kiekis/2) - 1])/2) % 2 == 0)
-            med[j] = (paz[kiekis/2] + paz[(kiekis/2) - 1])/2;
+            else med[j] = (paz[kiekis/2] + paz[(kiekis/2) - 1])/2;
         }
+        else if (kiekis%2 == 0 && kiekis == 2) med[j] = Vid[j];
         cout << "Vidurkis: " << setprecision(2) << fixed << Vid[j] << endl;
         cout << "Mediana: " << setprecision(2) << fixed << med[j] << endl;
 
@@ -131,35 +141,66 @@ else if (p == 'n')
         char p;
         cout << "Iveskite " << j << " mokinio " << i << " pazymi: ";
         cin >> paz[i-1];
+         while (!cin.good())
+            {
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                cout << "Klaida. Iveskite dar karta: ";
+                cin >> paz[i-1];
+            }
         cout << "Ar visi pazymiai? t/n" << endl;
         cin >> p;
+        while (p != 't' && p != 'n')
+        {
+            {
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                cout << "Klaida. Iveskite dar karta: ";
+                cin >> p;
+}
+            }
         vv[j-1] = vv[j-1] + paz[i-1];
-        while (p != 't') {
+        while (p == 'n') {
 
             i++;
             cout << "Iveskite " << j << " mokinio " << i << " pazymi: ";
             cin >> paz[i-1];
+             while (!cin.good())
+            {
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                cout << "Klaida. Iveskite dar karta: ";
+                cin >> paz[i-1];
+            }
             vv[j-1] = vv[j-1] + paz[i-1];
             cout << "Ar visi pazymiai? t/n" << endl;
             cin >> p;
+            while (p != 't' && p != 'n')
+            {
+            {
+                cin.clear();
+                cin.ignore(INT_MAX, '\n');
+                cout << "Klaida. Iveskite dar karta: ";
+                cin >> p;
+            }
+            }
 
         }
         kiek[j-1] = kiek[j-1] + i;
 
     }
+        Vid[j-1] = vv[j-1] / kiek[j-1];
         k = k + kiek[j-1];
         sort(paz, paz+k);
         if (k%2 == 1)
         med[j-1] = paz[(k/2)];
-        else if (((paz[k/2] + paz[(k/2) - 1])/2) % 2 != 0)
-            med[j-1] = (paz[k/2] + paz[(k/2) - 1])/2;
-        else if (((paz[k/2] + paz[(k/2) - 1])/2) % 2 == 0)
+         else if (k%2 == 0 && k != 2) {
+            if (((paz[k/2] + paz[(k/2) - 1])/2) % 2 == 1)
             med[j-1] = (paz[k/2] + paz[(k/2) - 1])/2+0.5;
+            else med[j-1] = (paz[k/2] + paz[(k/2) - 1])/2;
+        }
+        else if (k%2 == 0 && k == 2) med[j-1] = Vid[j-1];
 
-
-        Vid[j-1] = vv[j-1] / kiek[j-1];
-        cout << k << endl;
-        cout << paz[1] << endl;
         cout << "Vidurkis: " << setprecision(2) << fixed << Vid[j-1] << endl;
         cout << "Mediana: " << setprecision(2) << fixed << med[j-1] << endl;
 
