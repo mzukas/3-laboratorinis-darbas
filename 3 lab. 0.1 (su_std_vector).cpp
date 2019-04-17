@@ -36,11 +36,10 @@ if (k == 'a')
         cin >> p;
         paz.clear();
         srand(time(NULL));
-        for (int o=0; o < p; o++)
+        for (int o=1; o <= p; o++)
         {
-
-            paz.push_back(rand()%10);
-
+            paz.push_back(rand()%10+1);
+            cout << paz.back() << endl;
         }
 
     }
@@ -52,8 +51,9 @@ else if (k == 'r')
                 paz.push_back(itemp);
                 j++;
             } while(itemp);
+            paz.pop_back();
     }
-    paz.pop_back();
+
         vid = 0;
         for (int i : paz)
         vid += i;
