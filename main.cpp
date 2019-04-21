@@ -10,6 +10,7 @@ int main()
     cout << "Vesite duomenis is failo ar ekrano? f/e " << endl;
 	cin >> r;
     if (r == 'e')
+    try
 	{ duom temp;  char kr;
 	    do {
 		temp.pildymas();
@@ -20,7 +21,10 @@ int main()
 	} while (kr == 't' || kr == 'T');
 	isvedimas();
 	}
-
+     catch(int e)
+        {
+            cout << "Error number " << e << endl;
+        }
 
 
 else if (r == 'f')
@@ -29,6 +33,7 @@ else if (r == 'f')
     ifstream failas("ursiokai.txt");
     string eil;
     int n=0, i=0;
+    try {
     failas >> eil;
     while( failas >> eil  )
         {
@@ -38,7 +43,11 @@ else if (r == 'f')
            n++;
         }
 failas.close();
-
+    }
+    catch(int e)
+        {
+            cout << "Klaida. Numeris: " << e << endl;
+        }
     cout << "Norite skaiciuoti vidurki ar mediana? (v/m)" << endl;
     cin >> r;
     if(r == 'm')
