@@ -1,0 +1,4 @@
+Vardas_Pavarde_ND1_ND2_ND3_ND4_ND5_ND6_Egzaminas
+Lukas_Morka_7_7_7_9_8_8_7
+Tomas_Bulve_1_1_1_1_1_1_1
+

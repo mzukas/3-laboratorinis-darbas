@@ -1,21 +1,82 @@
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
+#include <bits/stdc++.h>
 #include <ctime>
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
 using namespace std;
+const int max_stud_kiekis = 100;
+const int max_nd_kiekis = 100;
 
 struct duom {
 	string vardas, pavarde;
 	vector <int> paz;
 	double vid, med, gal;
-	void pildymas();
-};
-vector <duom> lent;
+	int egz;
+	int kiekis;
 
+	void pildymas(), pildymasf();
+};
+void read_from_file(string eilute, duom& stud);
+vector<string> split(const string& s, char delimiter);
+void skaiciavimai(duom& stud);
+
+vector <duom> lent;
+vector<string> split(const string& s, char delimiter)
+{
+    vector<string> tokens;
+    string token;
+    istringstream tokenStream(s);
+    while (getline(tokenStream, token, delimiter))
+    {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
+void read_from_file(string eilute, duom& stud)
+{
+    char s = '_';
+    vector<string> data = split(eilute, s);
+
+    stud.vid = 0;
+    stud.vardas = data[0];
+    stud.pavarde = data[1];
+    for(int i = 0; i < 6; i++)
+    {
+        stud.paz.push_back(stoi(data[2+i]));
+        stud.vid += stoi(data[2+i]);
+    }
+    stud.egz = stoi(data[8]);
+    stud.vid = stud.vid / 6;
+    stud.kiekis = 6;
+}
+void skaiciavimai(duom& stud)
+{
+    stud.gal = stud.vid * 0.4 + stud.egz * 0.6;
+
+    int pazymiai[stud.kiekis];
+    for(int i = 0; i < stud.kiekis; i++)
+    {
+        pazymiai[i] = stud.paz[i];
+    }
+    int n = sizeof(pazymiai)/sizeof(pazymiai[0]);
+    sort(pazymiai, pazymiai+n);
+    if (n % 2 != 0)
+    {
+        stud.med = (double)pazymiai[n/2];
+    }
+    else
+    {
+        stud.med = (double)(pazymiai[(n-1)/2] + pazymiai[n/2])/2;
+    }
+}
 void duom::pildymas()
 {
 
@@ -72,6 +133,7 @@ void isvedimas()
         case ('V','v'):
             cout << string(79, '*') << endl;
             cout << left << setw(30) << "Mokinys" << "Galutinis (Vid.)" << endl;
+            cout << string(79, '-') << endl;
             for (duom i: lent)
     {
         cout << i.vardas<< " " << setw(28) << left << i.pavarde;
@@ -82,6 +144,7 @@ void isvedimas()
         case ('M','m'):
             cout << string(79, '*') << endl;
             cout << left << setw(30) << "Mokinys" << "Galutinis (Med.)" << endl;
+            cout << string(79, '-') << endl;
     for (duom i: lent)
     {
         cout << i.vardas << " "  << setw(28) << left << i.pavarde;
@@ -94,17 +157,62 @@ void isvedimas()
 
 int main()
 {
-
-    duom Sd_temp;  char kr;
-	do {
-		Sd_temp.pildymas();
-		lent.push_back(Sd_temp);
+    char r;
+    cout << "Vesite duomenis is failo ar ekrano? f/e " << endl;
+	cin >> r;
+    if (r == 'e')
+	{ duom temp;  char kr;
+	    do {
+		temp.pildymas();
+		lent.push_back(temp);
 
 		cout << "Vesti kita mokini? t/n: "<<endl;;
 		cin >> kr;
 	} while (kr == 't' || kr == 'T');
+	isvedimas();
+	}
 
-    isvedimas();
+
+
+else if (r == 'f')
+{
+    duom temp[max_stud_kiekis];
+    ifstream failas("ursiokai.txt");
+    string eil;
+    int n=0, i=0;
+    failas >> eil;
+    while( failas >> eil  )
+        {
+           read_from_file(eil, temp[n]);
+           skaiciavimai(temp[n]);
+           i++;
+           n++;
+        }
+failas.close();
+
+    cout << "Norite skaiciuoti vidurki ar mediana? (v/m)" << endl;
+    cin >> r;
+    if(r == 'm')
+    {
+        cout << string(79, '*') << endl;
+        cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis (med.)" << endl;
+        cout << string(79, '-') << endl;
+        for(int j = 0; j < i; j++)
+        {
+            cout << left << setw(15) <<temp[j].vardas << setw(15) << temp[j].pavarde << right<< setw(5) << temp[j].med<< endl;
+        }
+    }
+    else if (r == 'v')
+    {
+        cout << string(79, '*') << endl;
+        cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis (vid.)" << endl;
+        cout << string(79, '-') << endl;
+        for(int j = 0; j < i; j++)
+        {
+            cout << left << setw(15) << temp[j].vardas << setw(15) << temp[j].pavarde << right << setw(5) << temp[j].vid << endl;
+        }
+    } }
+
 
 
     system("pause");
