@@ -27,8 +27,7 @@ int main ()
         cout << "Klaida " << e << endl;
     }
     }
-    cout << kiek << endl;
-
+    cout << "Ivesti " << kiek << " mokiniai" << endl;
 auto pradzios_laikas = chrono::steady_clock::now();
 {
     auto failu_kurimas_pradzia = chrono::steady_clock::now();
@@ -66,7 +65,11 @@ auto pradzios_laikas = chrono::steady_clock::now();
     failas_simtastukst << string(79, '*') << endl;
     failas_atsitiktiniskiek << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis vid." << endl;
     failas_atsitiktiniskiek << string(79, '*') << endl;
+    auto failu_kurimas_pabaiga = chrono::steady_clock::now();
+    auto failu_kurimas = failu_kurimas_pabaiga - failu_kurimas_pradzia;
+    cout  << "Failu kurimas uztruko " << chrono::duration <double, milli> (failu_kurimas).count() << " ms" << endl;
 
+    auto pildymo_pradzios_laikas = chrono::steady_clock::now();
     for(int i = 0; i < kiek; i++)
     {
 
@@ -125,10 +128,12 @@ auto pradzios_laikas = chrono::steady_clock::now();
     failas_desimttukst.close();
     failas_simtastukst.close();
     failas_atsitiktiniskiek.close();
+    auto pildymo_pabaigos_laikas = chrono::steady_clock::now();
+    auto pildymo_laiko_skirtumas = pildymo_pabaigos_laikas - pildymo_pradzios_laikas;
+    auto programa = pildymo_laiko_skirtumas + failu_kurimas;
+    cout  << "Studentu rusiavimas ir failu uzdarymas uztruko " << chrono::duration <double, milli> (pildymo_laiko_skirtumas).count() << " ms" << endl;
+    cout  << "Viso uztruko " << chrono::duration <double, milli> (programa).count() << " ms" << endl;
 }
 
-    auto pabaigos_laikas = chrono::steady_clock::now();
-    auto laiko_skirtumas = pabaigos_laikas - pradzios_laikas;
-    cout  << "Failu kurimas ir studentu rusiavimas uztruko " << chrono::duration <double, milli> (laiko_skirtumas).count() << " ms" << endl;
     system("pause");
 }
