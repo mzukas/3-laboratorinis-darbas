@@ -217,7 +217,7 @@ void Rasymas()
     auto nt= chrono::steady_clock::now();
     auto gn = nt - ng;
    cout << "Laikas kol surusiavo i galvocius ir nuskriaustukus: " << chrono::duration<double, milli> (gn).count()<<" ms"<<endl;
-//isvedimas i tinginiu ir grauziku failus
+
 auto sp= chrono::steady_clock::now();
 ps.open("nuskriaustukai.txt", std::ofstream::out | std::ofstream::trunc);
 pp.open("galvociai.txt", std::ofstream::out | std::ofstream::trunc);

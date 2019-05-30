@@ -8,11 +8,6 @@
 #include <deque>
 
 
-
-
-
-
-
 using namespace std;
 struct duom {
 	string vardas, pavarde;
@@ -28,8 +23,8 @@ struct duomm {
 };
 void rusiavimas();
 vector <duomm> lentele;
-vector <duomm> nuskriaustukai;
-vector <duomm> galvociai;
+deque <duomm> nuskriaustukai;
+deque <duomm> galvociai;
 
 int kiekis;
 duom studentas(int s);
@@ -182,10 +177,7 @@ rusiavimas();
 auto re= chrono::steady_clock::now();
 auto r = re - rr;
 cout << "Laikas kol surusiavo pagal galutinius pazymius: " << chrono::duration<double, milli> (r).count()<<" ms"<<endl;
-for (duomm i : lentele)
-{
-     fs <<i.vardas<<setw(15)<<i.pavarde<<setw(10)<<i.galutinis<<endl;
-}
+
 is.close();
 
 }
@@ -202,39 +194,36 @@ void rusiavimas()
 
 void Rasymas()
 {
-    ofstream ps,pp;
+    ofstream ps,fs;
     auto ng= chrono::steady_clock::now();
     for (duomm i : lentele)
     {
         if (i.galutinis<5)
         {
             nuskriaustukai.push_back(i);
-        }
-        else if(i.galutinis>5)
-        {
-            galvociai.push_back(i);
+            lentele.pop_back();
 
         }
+
 	}
     auto nt= chrono::steady_clock::now();
     auto gn = nt - ng;
    cout << "Laikas kol surusiavo i galvocius ir nuskriaustukus: " << chrono::duration<double, milli> (gn).count()<<" ms"<<endl;
-//isvedimas i tinginiu ir grauziku failus
+
 auto sp= chrono::steady_clock::now();
 ps.open("nuskriaustukai.txt", std::ofstream::out | std::ofstream::trunc);
-pp.open("galvociai.txt", std::ofstream::out | std::ofstream::trunc);
-
+fs.open("lentele.txt", std::ofstream::out | std::ofstream::trunc);
 for (duomm i : nuskriaustukai)
 {
      ps <<i.vardas<<setw(15)<<i.pavarde<<setw(10)<<i.galutinis<<endl;
 }
-for (duomm i : galvociai)
+for (duomm i : lentele)
 {
-     pp <<i.vardas<<setw(15)<<i.pavarde<<setw(10)<<i.galutinis<<endl;
+     fs <<i.vardas<<setw(15)<<i.pavarde<<setw(10)<<i.galutinis<<endl;
 }
 
 ps.close();
-pp.close();
+fs.close();
 auto tn= chrono::steady_clock::now();
 auto pk = tn - sp;
 cout<<"Laikas isvedinejant i nuskriaustuku ir galvociu failus: "<< chrono::duration<double, milli> (pk).count() <<" ms"<<endl;
