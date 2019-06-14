@@ -23,4 +23,4 @@ failų kūrimui.
 Palyginami "vector", "deque" ir "list" konteinerių veikimo greičiai:
 
 List:
-
+![](Nuotraukos/2019-05-23 03_56_03-_D__MECHATRONIKA IR ROBOTIKA_C++_0.4_list.exe_)
