@@ -32,4 +32,9 @@ Vector:
 
 Deque:
 
-![]()
+![](Nuotraukos/2019-05-23%2003_56_33-deque.cpp%20-%20Code__Blocks%2017.12.png)
+
+
+# 1.0
+
+Palyginamos dvi strategijos - kuomet iš pagrindinio mokinių failo išrenkami "galvočiai" ir "nuskriaustukai", ir kuomet iš pagrindinio mokinių failo ištrinami "nuskriaustukai", paliekami "galvočiai", o į nuskriaustukai.txt rašomi <5 vidurkį turinčius mokinius.
