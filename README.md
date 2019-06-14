@@ -21,3 +21,6 @@ failų kūrimui.
 
 # 0.5
 Palyginami "vector", "deque" ir "list" konteinerių veikimo greičiai:
+
+List:
+
