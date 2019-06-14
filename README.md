@@ -28,3 +28,8 @@ List:
 
 Vector:
 
+![](Nuotraukos/2019-05-23%2003_57_54-0.4.png)
+
+Deque:
+
+![]()
