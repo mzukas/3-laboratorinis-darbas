@@ -20,7 +20,7 @@ Programoje sukuriami atsitiktinių duomenų failai pagal norima mokinių kiekį 
 failų kūrimui.
 
 # 0.5
-Palyginami "vector", "deque" ir "list" konteinerių veikimo greičiai:
+Palyginami "vector", "deque" ir "list" konteinerių veikimo greičiai (kuriami 100000 mokinių failas):
 
 List:
 
